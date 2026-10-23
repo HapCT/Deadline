@@ -2,6 +2,8 @@
 
 Website giúp sinh viên luôn thấy deadline gấp nhất ngay trên màn hình máy tính.
 
+**Dùng thử:** https://deadline-bay.vercel.app/ (mở bằng Chrome hoặc Edge để dùng được widget)
+
 ## Vì sao tôi làm
 
 Tôi học nhiều môn cùng lúc và deadline đến từ nhiều chỗ: LMS của trường, nhóm Zalo của lớp, lời thầy cô dặn cuối buổi. Tin nhắn mới đẩy tin cũ trôi đi, nên có lúc tôi chỉ biết mình lỡ hạn khi đã quá muộn.

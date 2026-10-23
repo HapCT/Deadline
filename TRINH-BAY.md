@@ -2,6 +2,9 @@
 
 Website giúp sinh viên luôn thấy deadline gấp nhất ngay trên màn hình máy tính.
 
+- **Dùng thử:** https://deadline-bay.vercel.app/
+- **Code:** https://github.com/HapCT/Deadline
+
 ## 1. Vấn đề
 
 Tôi học nhiều môn cùng lúc và deadline đến từ nhiều chỗ: LMS của trường, nhóm Zalo của lớp, lời thầy cô dặn cuối buổi. Không có chỗ nào gom hết lại.
