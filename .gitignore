@@ -1,0 +1,7 @@
+node_modules
+dist
+
+# Ghi chú làm việc, chỉ giữ trên máy
+CLAUDE.md
+tasks/
+.claude/

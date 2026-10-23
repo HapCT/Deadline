@@ -1,0 +1,377 @@
+/* Warm Living, xem D:\Thực tập\DESIGN.md */
+:root {
+  --white: #FFFFFF;
+  --cream: #FFF3E3;
+  --beige: #F9F1E7;
+  --mist: #F4F5F7;
+  --gold: #B88E2F;
+  --gold-deep: #85661F;
+  --ink: #333333;
+  --muted: #6E6E6E;
+  --faint: #B0B0B0;
+  --line: #D9D9D9;
+  --sale: #C94444;
+  --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--ink);
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1, h2, p { margin: 0; }
+
+button, input { font: inherit; color: inherit; }
+
+.wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- Đầu trang */
+.top { padding: 32px 0 24px; }
+
+.top-inner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.eyebrow {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+h1 {
+  color: var(--gold-deep);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.lead {
+  max-width: 560px;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.pip-box { flex-shrink: 0; max-width: 260px; }
+
+.note { color: var(--muted); font-size: 14px; }
+
+/* ---------- Nút */
+.btn {
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 14px 40px;
+}
+
+.btn-small { font-size: 14px; padding: 8px 24px; }
+
+.btn-primary {
+  background: var(--gold-deep);
+  border: 1px solid var(--gold-deep);
+  color: var(--white);
+}
+.btn-primary:hover { background: var(--gold); border-color: var(--gold); }
+
+.btn-outline {
+  background: var(--white);
+  border: 1px solid var(--gold);
+  color: var(--gold-deep);
+}
+.btn-outline:hover { background: var(--gold-deep); color: var(--white); }
+
+.btn-text {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.btn-text:hover { color: var(--ink); }
+.btn-text.is-danger { color: var(--sale); }
+
+:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 2px; }
+
+/* ---------- Thẻ Gấp nhất */
+.urgent-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--gold);
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  padding: 16px 20px;
+}
+.urgent-body { min-width: 0; }
+.urgent-card .eyebrow { margin-bottom: 4px; }
+.urgent-card.is-overdue { border-left-color: var(--sale); }
+
+.urgent-when {
+  color: var(--ink);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.urgent-card.is-urgent .urgent-when,
+.urgent-card.is-soon .urgent-when { color: var(--gold-deep); }
+.urgent-card.is-overdue .urgent-when { color: var(--sale); }
+
+.urgent-task {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+
+.urgent-card .btn { flex-shrink: 0; }
+
+/* ---------- Form */
+.form-card {
+  background: var(--cream);
+  padding: 20px 24px;
+}
+
+.form-card h2 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+
+/* 3 ô và nút THÊM nằm cùng một hàng. */
+.form-card form {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.2fr) 1fr 1fr auto;
+  gap: 16px;
+  align-items: start;
+}
+
+.field label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-bottom: 4px;
+}
+
+.optional { color: var(--muted); font-weight: 400; }
+
+/* Ô nhập và nút THÊM cùng cao 42px để thẳng hàng. */
+.field input, .field select {
+  width: 100%;
+  height: 42px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  padding: 0 12px;
+}
+.field select { width: auto; padding: 0 6px; cursor: pointer; }
+
+.due-inputs { display: flex; align-items: center; gap: 6px; }
+.due-inputs input { flex: 1; min-width: 0; }
+.due-colon { font-weight: 600; }
+.field input::placeholder { color: var(--faint); }
+.field input[aria-invalid="true"] { border-color: var(--sale); }
+
+.field-error { color: var(--sale); font-size: 14px; margin-top: 6px; }
+.field-hint { color: var(--muted); font-size: 14px; margin-top: 6px; }
+.field-hint.is-warning { color: var(--sale); }
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 24px; /* bằng chiều cao nhãn, để nút thẳng hàng với ô nhập */
+}
+.form-actions .btn-primary { height: 42px; padding: 0 24px; font-size: 14px; }
+
+/* Màn vừa: 2 cột, nút xuống hàng riêng. */
+@media (max-width: 900px) {
+  .form-card form { grid-template-columns: 1fr 1fr; }
+  .form-actions { grid-column: 1 / -1; padding-top: 0; }
+}
+
+/* ---------- Danh sách */
+.list { padding: 32px 0 96px; } /* chừa chỗ cho thanh Hoàn tác ở đáy */
+
+.group + .group, .done-group { margin-top: 28px; }
+
+.group h2, .done-group summary {
+  border-bottom: 1px solid var(--line);
+  font-size: 18px;
+  font-weight: 600;
+  padding-bottom: 8px;
+}
+
+.count { color: var(--muted); font-weight: 400; }
+
+.done-group summary { cursor: pointer; }
+
+.items { list-style: none; margin: 0; padding: 0; }
+
+.item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: start;
+  border-bottom: 1px solid var(--mist);
+  padding: 10px 0;
+}
+
+.item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 3px 0 0;
+  accent-color: var(--gold-deep);
+  cursor: pointer;
+}
+
+.item-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 10px;
+}
+.item-when { font-weight: 700; white-space: nowrap; }
+.item-task { font-weight: 500; overflow-wrap: anywhere; }
+
+.item-meta {
+  color: var(--muted);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+/* Dấu chấm ngăn giữa "ở đâu" và "hạn". */
+.item-meta > * + *::before { content: '·'; margin: 0 8px; color: var(--faint); }
+.item-where a { color: var(--gold-deep); }
+
+.item-actions { display: flex; gap: 16px; }
+
+/* Mức gấp: dưới 24 giờ nổi bật nhất, dưới 3 ngày chữ vàng, quá hạn chữ đỏ. */
+.item.is-urgent {
+  background: var(--cream);
+  border-left: 4px solid var(--gold);
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.is-urgent .item-when { color: var(--gold-deep); font-size: 17px; }
+.is-soon .item-when { color: var(--gold-deep); }
+.is-overdue .item-when { color: var(--sale); }
+.is-done .item-when { color: var(--muted); font-weight: 500; }
+.is-done .item-task { color: var(--muted); text-decoration: line-through; }
+
+.empty {
+  background: var(--beige);
+  color: var(--muted);
+  padding: 32px;
+  text-align: center;
+}
+
+/* ---------- Thanh Hoàn tác */
+.undo-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: calc(100% - 32px);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--gold);
+  box-shadow: var(--shadow);
+  font-size: 14px;
+  padding: 8px 10px 8px 16px;
+}
+.undo-bar:empty { display: none; }
+.undo-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.undo-bar .btn { flex-shrink: 0; }
+
+/* ---------- Widget (cửa sổ nổi) */
+/* Widget là cửa sổ nhỏ để liếc qua, nên mọi thứ nhỏ và sát hơn trang chính.
+   Đặt sau các luật khác và có tiền tố .widget để thắng luật điện thoại (cửa sổ widget hẹp hơn 720px). */
+body.widget { padding: 10px; font-size: 13px; line-height: 1.45; }
+
+/* Nút ĐÃ XONG nằm bên phải, cùng hàng với nội dung. */
+.widget .urgent-card { flex-direction: row; align-items: center; gap: 8px; margin-bottom: 10px; padding: 8px 10px; }
+.widget .urgent-card .eyebrow { font-size: 10px; letter-spacing: 2px; margin-bottom: 2px; }
+.widget .urgent-when { font-size: 17px; }
+.widget .urgent-task { font-size: 13px; margin-top: 2px; }
+.widget .urgent-card .btn { font-size: 11px; letter-spacing: 0.5px; padding: 4px 10px; }
+
+.widget-title {
+  border-bottom: 1px solid var(--line);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding-bottom: 4px;
+}
+
+.widget .item { grid-template-columns: auto 1fr; gap: 8px; padding: 6px 0; }
+.widget .item.is-urgent { border-left-width: 3px; padding-left: 6px; padding-right: 6px; }
+.widget .item input[type="checkbox"] { width: 14px; height: 14px; margin-top: 2px; }
+/* Tên việc luôn nằm dòng riêng dưới đếm ngược, để các việc thẳng hàng như nhau. */
+.widget .item-line { flex-direction: column; align-items: flex-start; }
+.widget .item-when, .widget .is-urgent .item-when { font-size: 13px; }
+.widget .item-task { font-size: 13px; }
+/* Nơi nộp dài (link) thì cắt bằng dấu … cho gọn 1 dòng. */
+.widget .item-meta { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.widget .urgent-body { flex: 1; }
+
+/* Thanh Hoàn tác trong widget: nằm cuối nội dung và bám đáy cửa sổ khi phải cuộn, không che việc nào. */
+.widget .undo-bar {
+  position: sticky;
+  left: auto;
+  right: auto;
+  bottom: 0;
+  transform: none;
+  max-width: none;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  border-left-width: 3px;
+  font-size: 12px;
+  padding: 4px 6px 4px 10px;
+}
+.widget .undo-bar .btn { font-size: 11px; letter-spacing: 0.5px; padding: 3px 8px; }
+
+.widget-empty { color: var(--muted); padding: 24px 0; text-align: center; }
+.widget-more { color: var(--muted); font-size: 11px; margin-top: 8px; }
+
+/* ---------- Điện thoại */
+@media (max-width: 720px) {
+  .wrap { padding: 0 16px; }
+  .undo-bar { left: 16px; right: 16px; bottom: 16px; transform: none; max-width: none; justify-content: space-between; }
+  .top { padding: 24px 0 16px; }
+  .top-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+  h1 { font-size: 24px; }
+  .urgent-card { flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px; }
+  .urgent-when { font-size: 24px; }
+  .form-card { padding: 20px 16px; }
+  .form-card form { grid-template-columns: 1fr; gap: 12px; }
+  .form-actions .btn-primary { flex: 1; }
+  .item { grid-template-columns: auto 1fr; }
+  .item-actions { grid-column: 2; }
+}
