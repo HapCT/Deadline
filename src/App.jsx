@@ -94,7 +94,7 @@ export default function App() {
             <p className="eyebrow">DEADLINE RADAR</p>
             <h1>Deadline gấp nhất, luôn ở trước mắt</h1>
             <p className="lead">
-              Ghi hạn nộp vào đây rồi mở widget. Widget nằm trên màn hình, liếc qua là biết việc nào cần làm trước.
+              Dán tin nhắn có deadline vào đây, app tự hiểu ngày giờ. Mở widget để luôn thấy việc gấp nhất khi làm việc khác.
             </p>
           </div>
           <div className="pip-box">

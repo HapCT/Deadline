@@ -198,6 +198,11 @@ h1 {
 .field-error { color: var(--sale); font-size: 14px; margin-top: 6px; }
 .field-hint { color: var(--muted); font-size: 14px; margin-top: 6px; }
 .field-hint.is-warning { color: var(--sale); }
+.field-hint strong { color: var(--ink); font-weight: 600; }
+
+/* Ô dán tin nhắn: một hàng riêng trên cùng form, viền vàng để là chỗ bắt đầu. */
+.quick-field { grid-column: 1 / -1; }
+.quick-field input { border-color: var(--gold); }
 
 .form-actions {
   display: flex;

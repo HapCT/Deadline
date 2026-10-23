@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { parseVi } from '../lib/parseVi.js';
 import { defaultDue, formatDue } from '../lib/time.js';
 
 // Giờ chọn kiểu 24 giờ (00 đến 23), vì nhiều người nhầm AM/PM trên ô giờ của trình duyệt.
@@ -16,7 +17,11 @@ export default function DeadlineForm({ editing, now, onSubmit, onCancel }) {
   const [errors, setErrors] = useState({});
   // Hạn đã qua mà người dùng vẫn bấm lưu lần 2 thì coi như cố ý.
   const [pastConfirmed, setPastConfirmed] = useState('');
+  // Ô dán tin nhắn: câu gốc và kết quả đọc câu (null khi ô trống).
+  const [quick, setQuick] = useState('');
+  const [understood, setUnderstood] = useState(null);
   const formRef = useRef(null);
+  const quickRef = useRef(null);
   const dateRef = useRef(null);
   const taskRef = useRef(null);
 
@@ -24,6 +29,8 @@ export default function DeadlineForm({ editing, now, onSubmit, onCancel }) {
   const editingId = editing?.id ?? null;
   useEffect(() => {
     setErrors({});
+    setQuick('');
+    setUnderstood(null);
     if (!editing) {
       setValues(emptyValues());
       return;
@@ -35,6 +42,20 @@ export default function DeadlineForm({ editing, now, onSubmit, onCancel }) {
 
   const due = joinDue(values);
   const dueIsPast = Boolean(due) && new Date(due).getTime() < now;
+
+  // Dán hoặc gõ một câu → tự điền 3 ô bên dưới; người dùng xem lại, sửa rồi mới THÊM.
+  const changeQuick = (e) => {
+    const text = e.target.value;
+    setQuick(text);
+    setErrors({});
+    if (!text.trim()) {
+      setUnderstood(null);
+      return;
+    }
+    const result = parseVi(text, new Date());
+    setUnderstood(result);
+    setValues({ ...splitDue(result.due || defaultDue()), task: result.task, where: result.where });
+  };
 
   const change = (e) => {
     const { name, value } = e.target;
@@ -67,13 +88,33 @@ export default function DeadlineForm({ editing, now, onSubmit, onCancel }) {
     setPastConfirmed('');
     onSubmit(data);
     setValues(emptyValues());
-    dateRef.current.focus();
+    setQuick('');
+    setUnderstood(null);
+    // Thêm xong quay về ô dán tin nhắn để dán việc tiếp theo.
+    (editing ? dateRef : quickRef).current?.focus();
   };
 
   return (
     <section className="form-card" aria-labelledby="form-title" ref={formRef}>
       <h2 id="form-title">{editing ? 'Sửa deadline' : 'Thêm deadline'}</h2>
       <form onSubmit={submit} noValidate>
+        {!editing && (
+          <div className="field quick-field">
+            <label htmlFor="f-quick">Dán tin nhắn hoặc gõ một câu</label>
+            <input
+              id="f-quick" type="text" maxLength={500} ref={quickRef}
+              placeholder="Vd: Nộp báo cáo CSDL trước 17h thứ 6 tuần sau nhé"
+              value={quick} onChange={changeQuick} aria-describedby="h-quick"
+            />
+            <p id="h-quick" className="field-hint">
+              {!understood && 'App tự điền các ô bên dưới, bạn xem lại rồi bấm THÊM.'}
+              {understood?.due && (
+                <>Hiểu là: <strong>{formatDue(understood.due)}</strong>{understood.where && <> · Ở đâu: <strong>{understood.where}</strong></>}</>
+              )}
+              {understood && !understood.due && 'Chưa thấy hạn trong câu, hãy chọn hạn bên dưới.'}
+            </p>
+          </div>
+        )}
         <div className="field">
           <label htmlFor="f-date">Hạn</label>
           <div className="due-inputs">
