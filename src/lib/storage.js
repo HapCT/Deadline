@@ -15,3 +15,20 @@ export function save(items) {
     localStorage.setItem(KEY, JSON.stringify(items));
   } catch {}
 }
+
+// Widget đang thu gọn hay không, để lần mở sau giữ nguyên.
+const COMPACT_KEY = 'deadline-radar:widget-compact';
+
+export function loadCompact() {
+  try {
+    return localStorage.getItem(COMPACT_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+export function saveCompact(compact) {
+  try {
+    localStorage.setItem(COMPACT_KEY, compact ? '1' : '0');
+  } catch {}
+}

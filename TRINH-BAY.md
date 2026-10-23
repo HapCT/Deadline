@@ -36,11 +36,13 @@ Tôi thấy là vấn đề không nằm ở chỗ thiếu thông báo. Vấn đ
 | Form 3 ô: Hạn, Công việc, Ở đâu | Gom deadline từ mọi nguồn vào 1 chỗ, nhập trong vài giây |
 | Giờ chọn kiểu 24 giờ, có dòng ghi lại giờ đã chọn | Không nhầm 12 giờ trưa với nửa đêm. Chọn giờ đã qua thì được hỏi lại |
 | Thẻ "Gấp nhất" ở đầu trang | Mở ra là thấy ngay việc cần làm trước |
-| Nêu bật theo độ gấp | Dưới 24 giờ thì dòng có nền vàng nhạt, dưới 3 ngày thì chữ vàng, quá hạn thì chữ đỏ. Liếc qua là biết |
+| Nêu bật theo độ gấp | Dưới 1 giờ thì viền vàng nhấp nháy, dưới 24 giờ thì dòng có nền vàng nhạt, dưới 3 ngày thì chữ vàng, quá hạn thì chữ đỏ. Liếc qua là biết |
 | Đếm ngược "Còn 2 giờ 59 phút" | Hiểu ngay còn bao lâu, không phải tự tính từ ngày giờ |
-| Widget nổi luôn nằm trên màn hình | Không cần nhớ mở web. Đang làm việc khác vẫn thấy deadline ở góc màn hình |
+| Widget nổi luôn nằm trên màn hình, tự hiện việc gấp nhất | Không cần nhớ mở web hay tự chọn việc. Đang làm việc khác vẫn thấy deadline ở góc màn hình. Thu gọn được còn 1 dòng |
+| Tiêu đề tab hiện việc gấp nhất | Liếc thanh tab hay thanh tác vụ cũng thấy, kể cả khi không mở widget |
 | Ô "Ở đâu" bấm được nếu là link | Bấm một cái là tới đúng trang nộp bài |
 | Thanh "Hoàn tác" 5 giây sau khi tích xong | Lỡ tích nhầm thì lấy lại ngay, ở cả trang chính lẫn widget |
+| Cài ra màn hình chính điện thoại | Mở nhanh như app trên Android và iPhone, chạy được khi mất mạng |
 | Lưu trên máy, không cần tài khoản | Mở là dùng được ngay |
 
 ## 5. Kịch bản demo (2 phút)
@@ -53,7 +55,7 @@ Tôi thấy là vấn đề không nằm ở chỗ thiếu thông báo. Vấn đ
 
 ## 6. Giới hạn và bước tiếp theo
 
-- Widget chỉ chạy trên Chrome hoặc Edge bản mới, và tắt khi đóng tab web.
+- Widget chỉ chạy trên Chrome hoặc Edge ở máy tính, và tắt khi đóng tab web. Trên điện thoại không có widget.
 - Dữ liệu chỉ lưu trên một máy, chưa đồng bộ sang điện thoại.
 - Bước tiếp theo tôi nghĩ là có ích: gói thành app desktop để widget tự bật khi mở máy, và cho nhập nhanh bằng một dòng chữ như "Báo cáo CSDL thứ 6 tuần sau".
 

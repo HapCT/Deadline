@@ -7,19 +7,38 @@ import UrgentCard from './components/UrgentCard.jsx';
 import Widget from './components/Widget.jsx';
 import { useDeadlines } from './hooks/useDeadlines.js';
 import { useNow } from './hooks/useNow.js';
-import { pipSupported, usePipWindow } from './hooks/usePipWindow.js';
-import { byDue } from './lib/time.js';
+import { pipSupported, usePipWindow, WIDGET_COMPACT_HEIGHT, WIDGET_HEIGHT } from './hooks/usePipWindow.js';
+import { loadCompact, saveCompact } from './lib/storage.js';
+import { byDue, countdown } from './lib/time.js';
 
 const UNDO_MS = 5000;
+const APP_TITLE = 'Deadline Radar';
 
 export default function App() {
   const { items, add, update, toggleDone, remove } = useDeadlines();
   const now = useNow();
-  const { pipWindow, open, close } = usePipWindow();
+  const { pipWindow, open, close, resize } = usePipWindow();
   const [editingId, setEditingId] = useState(null);
+
+  // Widget thu gọn còn 1 dòng; cửa sổ co giãn theo.
+  const [compact, setCompact] = useState(loadCompact);
+  const widgetHeight = (isCompact) => (isCompact ? WIDGET_COMPACT_HEIGHT : WIDGET_HEIGHT);
+  const toggleCompact = () => {
+    const next = !compact;
+    setCompact(next);
+    saveCompact(next);
+    resize(widgetHeight(next));
+  };
 
   const editing = items.find((i) => i.id === editingId) ?? null;
   const active = useMemo(() => items.filter((i) => !i.done).sort(byDue), [items]);
+
+  // Tiêu đề tab và cửa sổ widget hiện việc gấp nhất, để liếc thanh tab hay thanh tác vụ cũng thấy.
+  const title = active[0] ? `${countdown(active[0].due, now)} · ${active[0].task}` : APP_TITLE;
+  useEffect(() => {
+    document.title = title;
+    if (pipWindow) pipWindow.document.title = title;
+  }, [title, pipWindow]);
 
   const handleSubmit = (data) => {
     if (editingId) {
@@ -80,11 +99,13 @@ export default function App() {
           </div>
           <div className="pip-box">
             {pipSupported ? (
-              <button type="button" className="btn btn-outline btn-small" onClick={pipWindow ? close : open}>
+              <button type="button" className="btn btn-outline btn-small" onClick={pipWindow ? close : () => open(widgetHeight(compact))}>
                 {pipWindow ? 'ĐÓNG WIDGET' : 'MỞ WIDGET'}
               </button>
             ) : (
-              <p className="note">Widget nổi chỉ chạy trên Chrome hoặc Edge bản mới. Trang này vẫn dùng bình thường.</p>
+              <p className="note">
+                Widget nổi chỉ có trên Chrome hoặc Edge ở máy tính. Trên điện thoại, hãy thêm trang này ra màn hình chính để mở nhanh như app.
+              </p>
             )}
           </div>
         </div>
@@ -100,7 +121,7 @@ export default function App() {
 
       <UndoBar item={undoItem} onUndo={handleUndo} />
 
-      {pipWindow && createPortal(<Widget active={active} now={now} onToggle={handleToggle} undoItem={undoItem} onUndo={handleUndo} />, pipWindow.document.body)}
+      {pipWindow && createPortal(<Widget active={active} now={now} onToggle={handleToggle} undoItem={undoItem} onUndo={handleUndo} compact={compact} onToggleCompact={toggleCompact} />, pipWindow.document.body)}
     </>
   );
 }

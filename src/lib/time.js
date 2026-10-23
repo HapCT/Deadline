@@ -40,10 +40,11 @@ export function group(due, now) {
   return 'later';
 }
 
-// Mức nêu bật: quá hạn, dưới 24 giờ, dưới 3 ngày, bình thường.
+// Mức nêu bật: quá hạn, dưới 1 giờ, dưới 24 giờ, dưới 3 ngày, bình thường.
 export function urgency(due, now) {
   const diff = toTime(due) - now;
   if (diff < 0) return 'overdue';
+  if (diff < HOUR) return 'critical';
   if (diff < DAY) return 'urgent';
   if (diff < 3 * DAY) return 'soon';
   return 'normal';

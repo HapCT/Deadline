@@ -138,6 +138,7 @@ h1 {
   font-weight: 700;
   line-height: 1.2;
 }
+.urgent-card.is-critical .urgent-when,
 .urgent-card.is-urgent .urgent-when,
 .urgent-card.is-soon .urgent-when { color: var(--gold-deep); }
 .urgent-card.is-overdue .urgent-when { color: var(--sale); }
@@ -267,14 +268,31 @@ h1 {
 
 .item-actions { display: flex; gap: 16px; }
 
-/* Mức gấp: dưới 24 giờ nổi bật nhất, dưới 3 ngày chữ vàng, quá hạn chữ đỏ. */
+/* Mức gấp: dưới 1 giờ viền nhấp nháy, dưới 24 giờ nền kem, dưới 3 ngày chữ vàng, quá hạn chữ đỏ. */
+.item.is-critical,
 .item.is-urgent {
   background: var(--cream);
   border-left: 4px solid var(--gold);
   padding-left: 12px;
   padding-right: 12px;
 }
+.is-critical .item-when,
 .is-urgent .item-when { color: var(--gold-deep); font-size: 17px; }
+
+/* Còn dưới 1 giờ: viền vàng bao quanh, sáng tối chậm 2 giây một nhịp để liếc là bắt được. */
+.item.is-critical,
+.urgent-card.is-critical,
+.widget-compact.is-critical {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+  animation: critical-pulse 2s ease-in-out infinite;
+}
+@keyframes critical-pulse {
+  50% { outline-color: var(--cream); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .item.is-critical, .urgent-card.is-critical, .widget-compact.is-critical { animation: none; }
+}
 .is-soon .item-when { color: var(--gold-deep); }
 .is-overdue .item-when { color: var(--sale); }
 .is-done .item-when { color: var(--muted); font-weight: 500; }
@@ -330,11 +348,12 @@ body.widget { padding: 10px; font-size: 13px; line-height: 1.45; }
 }
 
 .widget .item { grid-template-columns: auto 1fr; gap: 8px; padding: 6px 0; }
+.widget .item.is-critical,
 .widget .item.is-urgent { border-left-width: 3px; padding-left: 6px; padding-right: 6px; }
 .widget .item input[type="checkbox"] { width: 14px; height: 14px; margin-top: 2px; }
 /* Tên việc luôn nằm dòng riêng dưới đếm ngược, để các việc thẳng hàng như nhau. */
 .widget .item-line { flex-direction: column; align-items: flex-start; }
-.widget .item-when, .widget .is-urgent .item-when { font-size: 13px; }
+.widget .item-when, .widget .is-critical .item-when, .widget .is-urgent .item-when { font-size: 13px; }
 .widget .item-task { font-size: 13px; }
 /* Nơi nộp dài (link) thì cắt bằng dấu … cho gọn 1 dòng. */
 .widget .item-meta { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -356,6 +375,30 @@ body.widget { padding: 10px; font-size: 13px; line-height: 1.45; }
   padding: 4px 6px 4px 10px;
 }
 .widget .undo-bar .btn { font-size: 11px; letter-spacing: 0.5px; padding: 3px 8px; }
+
+/* Nút Thu gọn ở góc trên widget. */
+.widget-bar { display: flex; justify-content: flex-end; margin: -6px 0 2px; }
+.widget-bar .btn-text { font-size: 11px; }
+
+/* Widget thu gọn: 1 dòng đếm ngược + tên việc, bấm để mở rộng. */
+.widget-compact {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  width: 100%;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 6px 10px;
+  text-align: left;
+  white-space: nowrap;
+}
+.widget-compact.is-overdue { border-left-color: var(--sale); }
+.widget-compact .item-when { flex-shrink: 0; }
+.widget-compact-task { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 
 .widget-empty { color: var(--muted); padding: 24px 0; text-align: center; }
 .widget-more { color: var(--muted); font-size: 11px; margin-top: 8px; }
